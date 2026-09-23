@@ -9,6 +9,8 @@ import { Feather } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 
 import { colors } from './theme';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import JourneyScreen from './screens/JourneyScreen';
 import FeedScreen from './screens/FeedScreen';
@@ -91,7 +93,17 @@ function GlassTabBar({ state, navigation }) {
   );
 }
 
-export default function App() {
+function AppContent() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <View style={styles.loading}><Text style={styles.loadingText}>ASCENT</Text></View>;
+  }
+
+  if (!user) {
+    return <LoginScreen />;
+  }
+
   return (
     <SafeAreaProvider>
       <StatusBar style="dark" />
@@ -131,7 +143,18 @@ export default function App() {
   );
 }
 
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
+
 const styles = StyleSheet.create({
+  loading: { flex: 1, backgroundColor: '#F7F8F6', alignItems: 'center', justifyContent: 'center' },
+  loadingText: { color: '#171918', fontSize: 13, fontWeight: '700', letterSpacing: 2 },
+
   outer: {
     position: 'absolute',
 
