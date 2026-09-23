@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts } from '../theme';
+import { api } from '../services/api';
 
 const DAYS = [
   { day: 'L', date: 21, type: 'run' },
@@ -96,10 +97,29 @@ const PEOPLE = [
 
 export default function HomeScreen() {
   const [selectedDay, setSelectedDay] = useState(23);
+  const [activities, setActivities] = useState([]);
+  const [loadingActivities, setLoadingActivities] = useState(true);
+
+  useEffect(() => {
+    loadActivities();
+  }, []);
+
+  async function loadActivities() {
+    try {
+      const data = await api.activities();
+      setActivities(data.activities || data || []);
+    } catch (error) {
+      console.log('Error cargando actividades:', error);
+    } finally {
+      setLoadingActivities(false);
+    }
+  }
 
   const selectedTraining = WEEK_TRAINING.find(
     (item) => item.date === selectedDay
   );
+
+  const todayActivity = activities[0];
 
   return (
     <SafeAreaView
