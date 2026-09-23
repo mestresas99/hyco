@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const API_URL = 'http://localhost:4000/api';
+export const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:4000/api';
 
 async function request(path, options = {}) {
   const token = await AsyncStorage.getItem('ascent_token');
