@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ascent
+      POSTGRES_PASSWORD: ascent
+      POSTGRES_DB: ascent
+    ports:
+      - "5432:5432"
+    volumes:
+      - ascent_postgres:/var/lib/postgresql/data
+
+volumes:
+  ascent_postgres:
