@@ -25,7 +25,7 @@ const INITIAL_POSTS = [
     time: 'Hace 2h',
     text: 'Series de 8×800m a 4:15/km. Las primeras cuatro se sintieron fáciles, las dos últimas me destrozaron.',
     media: null,
-    type: 'RUN',
+    type: 'HYROX',
   },
   {
     id: '2',
@@ -34,9 +34,9 @@ const INITIAL_POSTS = [
     text: 'Estoy empezando a obsesionarme demasiado con el volumen. Creo que necesito una semana de descarga antes de que me lo pida el cuerpo.',
     media: {
       type: 'image',
-      uri: 'https://picsum.photos/seed/maria-run/800/600',
+      uri: 'https://hips.hearstapps.com/hmg-prod/images/hyrox-workout-66c798edb7c07.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*',
     },
-    type: 'TRAINING',
+    type: 'HYROX',
   },
   {
     id: '3',
@@ -44,7 +44,7 @@ const INITIAL_POSTS = [
     time: 'Ayer',
     text: 'Nuevo objetivo: bajar de 5h en el 70.3 de este año. Empiezo el bloque específico esta semana.',
     media: null,
-    type: 'GOAL',
+    type: 'HYROX',
   },
 ];
 
@@ -60,6 +60,8 @@ function getTypeLabel(type) {
       return 'TRAINING';
     case 'GOAL':
       return 'GOAL';
+    case 'HYROX':
+      return 'HYROX';
     default:
       return 'SPORT';
   }
@@ -166,19 +168,31 @@ export default function FeedScreen() {
       <View style={styles.filterContainer}>
         <TouchableOpacity style={styles.filterActive}>
           <Text style={styles.filterActiveText}>
-            Para ti
+            Hyrox
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.filter}>
           <Text style={styles.filterText}>
-            Siguiendo
+            Ironman
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.filter}>
           <Text style={styles.filterText}>
-            Descubrir
+            Trail running
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.filter}>
+          <Text style={styles.filterText}>
+            GYM
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.filter}>
+          <Text style={styles.filterText}>
+            Running
           </Text>
         </TouchableOpacity>
       </View>
@@ -728,6 +742,7 @@ const styles = StyleSheet.create({
   composerSafe: {
     flex: 1,
     backgroundColor: '#F7F8F6',
+    marginTop: '50'
   },
 
   keyboard: {
@@ -755,7 +770,7 @@ const styles = StyleSheet.create({
 
   cancel: {
     color: '#777C78',
-    fontSize: 13
+    fontSize: 13,
   },
 
   publish: {

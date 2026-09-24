@@ -107,6 +107,14 @@ export default function HomeScreen() {
   async function loadActivities() {
     try {
       const data = await api.activities();
+      console.log(
+        'ACTIVIDADES CON FECHA:',
+        data.map((activity) => ({
+          title: activity.title,
+          date: activity.date,
+        }))
+      );
+      console.log('ACTIVIDADES RECIBIDAS:', data);
       setActivities(data.activities || data || []);
     } catch (error) {
       console.log('Error cargando actividades:', error);
@@ -119,7 +127,9 @@ export default function HomeScreen() {
     (item) => item.date === selectedDay
   );
 
-  const todayActivity = activities[0];
+  const todayActivity = activities.find(
+    (activity) => activity.title === selectedTraining?.title
+  );
 
   return (
     <SafeAreaView

@@ -5,6 +5,8 @@ export const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:4000
 async function request(path, options = {}) {
   const token = await AsyncStorage.getItem('ascent_token');
 
+  console.log('API REQUEST:', path, token ? 'CON TOKEN' : 'SIN TOKEN');
+
   console.log('TOKEN ASCENT:', token ? 'EXISTE' : 'NO EXISTE');
 
   const response = await fetch(`${API_URL}${path}`, {
