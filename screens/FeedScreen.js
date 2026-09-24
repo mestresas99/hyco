@@ -578,8 +578,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 22,
-    paddingTop: 10,
-    paddingBottom: 14,
+    paddingTop: 8,
+    paddingBottom: 4,
   },
 
   headerText: {
@@ -602,12 +602,12 @@ const styles = StyleSheet.create({
     letterSpacing: -0.7,
     color: '#171918',
   },
-
+  
   description: {
-    marginTop: 4,
+    marginTop: 2,
     color: '#8A8E8B',
     fontSize: 12,
-    lineHeight: 17,
+    lineHeight: 16,
   },
 
   createButton: {
@@ -621,41 +621,47 @@ const styles = StyleSheet.create({
 
   filterContainer: {
     paddingHorizontal: 22,
-    paddingBottom: 4,
-    gap: 22,
+    paddingTop: 5,
+    paddingBottom: 0,
+    alignItems: 'flex-start',
+    gap: 20,
   },
-
+  
   filter: {
-    paddingBottom: 12,
+    height: 27,
+    justifyContent: 'flex-start',
   },
-
+  
   filterActive: {
-    paddingBottom: 12,
+    height: 27,
+    justifyContent: 'flex-start',
     borderBottomWidth: 2,
     borderBottomColor: colors.amber,
   },
-
+  
   filterText: {
     fontSize: 13,
+    lineHeight: 18,
     color: '#8A8E8B',
     fontWeight: '500',
   },
-
+  
   filterActiveText: {
     fontSize: 13,
+    lineHeight: 18,
     color: '#171918',
     fontWeight: '600',
   },
-
+  
   content: {
     paddingHorizontal: 22,
-    paddingTop: 8,
-    paddingBottom: 40,
+    paddingTop: 0,
+    paddingBottom: 320,
   },
-
+  
   post: {
-    paddingTop: 22,
-    paddingBottom: 24,
+    paddingTop: 8,
+    paddingBottom: 22,
     borderBottomWidth: 1,
     borderBottomColor: '#E5E7E4',
   },
@@ -833,6 +839,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#E5E7E4',
+    marginTop: 52
   },
 
   composerTitle: {
