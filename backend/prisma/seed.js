@@ -29,45 +29,25 @@ async function main() {
   const alex = await prisma.user.upsert({
     where: { email: 'alex@ascent.app' },
     update: {},
-    create: {
-      email: 'alex@ascent.app',
-      passwordHash,
-      name: 'Álex',
-      username: 'alexrun'
-    }
+    create: { email: 'alex@ascent.app', passwordHash, name: 'Álex', username: 'alexrun' }
   });
 
   const maria = await prisma.user.upsert({
     where: { email: 'maria@ascent.app' },
     update: {},
-    create: {
-      email: 'maria@ascent.app',
-      passwordHash,
-      name: 'María',
-      username: 'mariaruns'
-    }
+    create: { email: 'maria@ascent.app', passwordHash, name: 'María', username: 'mariaruns' }
   });
 
   const daniel = await prisma.user.upsert({
     where: { email: 'daniel@ascent.app' },
     update: {},
-    create: {
-      email: 'daniel@ascent.app',
-      passwordHash,
-      name: 'Daniel',
-      username: 'daniel703'
-    }
+    create: { email: 'daniel@ascent.app', passwordHash, name: 'Daniel', username: 'daniel703' }
   });
 
   const lucia = await prisma.user.upsert({
     where: { email: 'lucia@ascent.app' },
     update: {},
-    create: {
-      email: 'lucia@ascent.app',
-      passwordHash,
-      name: 'Lucía',
-      username: 'luciatrail'
-    }
+    create: { email: 'lucia@ascent.app', passwordHash, name: 'Lucía', username: 'luciatrail' }
   });
 
   await prisma.follow.upsert({
@@ -98,13 +78,25 @@ async function main() {
     create: { userId: pablo.id, communityId: community.id, role: 'MEMBER' }
   });
 
-  await prisma.activity.createMany({
-    data: [
-      { userId: pablo.id, type: 'RUN', title: 'Intervalos', description: '6 × 800 m', durationMin: 52, distanceKm: 8.4, pace: '4:00/km', intensity: 'Z4' },
-      { userId: pablo.id, type: 'GYM', title: 'Fuerza tren superior', description: 'Empuje', durationMin: 45, intensity: 'Media' },
-      { userId: alex.id, type: 'RUN', title: 'Series 8×800m', description: 'Trabajo de velocidad', durationMin: 48, distanceKm: 8.2, pace: '4:15/km', intensity: 'Z4' }
-    ]
-  });
+  const activities = [
+    { userId: pablo.id, type: 'RUN', title: 'Intervalos', description: '6 × 800 m', durationMin: 52, distanceKm: 8.4, pace: '4:00/km', intensity: 'Z4' },
+    { userId: pablo.id, type: 'GYM', title: 'Fuerza tren superior', description: 'Empuje', durationMin: 45, intensity: 'Media' },
+    { userId: alex.id, type: 'RUN', title: 'Series 8×800m', description: 'Trabajo de velocidad', durationMin: 48, distanceKm: 8.2, pace: '4:15/km', intensity: 'Z4' }
+  ];
+
+  for (const activity of activities) {
+    const existing = await prisma.activity.findFirst({
+      where: {
+        userId: activity.userId,
+        title: activity.title,
+        date: { gte: new Date(new Date().setHours(0, 0, 0, 0)) }
+      }
+    });
+
+    if (!existing) {
+      await prisma.activity.create({ data: activity });
+    }
+  }
 
   const demoPosts = [
     { userId: alex.id, text: 'Series de 8×800m a 4:15/km. Las primeras cuatro se sintieron fáciles.', type: 'RUNNING' },
@@ -122,6 +114,7 @@ async function main() {
     const existing = await prisma.post.findFirst({
       where: { userId: post.userId, text: post.text, type: post.type }
     });
+
     if (!existing) {
       await prisma.post.create({ data: post });
     }
